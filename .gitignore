@@ -14,3 +14,6 @@
 
 # Ignore select  Mac OS X files.
 .DS_Store
+
+# Ignore Spring gem files.
+/spring/*.pid

@@ -1,3 +1,4 @@
+puts "%PRODUCTION-I-TRACE, 'config/environments/production.rb' called."
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

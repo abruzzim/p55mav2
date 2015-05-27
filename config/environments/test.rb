@@ -1,3 +1,4 @@
+puts "%TEST-I-TRACE, 'config/environments/test.rb' called."
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
