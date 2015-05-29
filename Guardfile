@@ -23,6 +23,8 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
+# Reference: https://github.com/guard/guard/wiki/Guardfile-DSL---Configuring-Guard
+
 guard :minitest, spring: true, all_on_start: false do
   # with Minitest::Unit
   watch(%r{^test/(.*)\/?test_(.*)\.rb$})
@@ -42,8 +44,11 @@ guard :minitest, spring: true, all_on_start: false do
   watch(%r{^lib/(.+)\.rb$})                               { |m| "test/lib/#{m[1]}_test.rb" }
   watch(%r{^test/.+_test\.rb$})
   watch(%r{^test/test_helper\.rb$})                       { 'test' }
-  watch(%r{^app/views/layouts/application.html.erb$})     {'test/integration/site_layout_test.rb'}
-  watch(%r{^app/views/([^/]*?)/.*\.html\.erb$})           { |m| ["test/controllers/#{m[1]}_controller_test.rb"] + integration_tests(m[1])}
+  #watch(%r{^app/views/layouts/application.html.erb$})     { 'test/integration/site_layout_test.rb' }
+  #watch(%r{^app/views/layouts/_shim.html.erb$})           { 'test/integration/site_layout_test.rb' }
+  #watch(%r{^app/views/layouts/_header.html.erb$})         { 'test/integration/site_layout_test.rb' }
+  #watch(%r{^app/views/layouts/_footer.html.erb$})         { 'test/integration/site_layout_test.rb' }
+  watch(%r{^app/views/([^/]*?)/.*\.html\.erb$})           { |m| ["test/controllers/#{m[1]}_controller_test.rb"] + integration_tests(m[1]) }
 end
 
 # Returns the integration tests corresponding to the given resource.
