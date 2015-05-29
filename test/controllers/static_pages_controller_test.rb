@@ -32,7 +32,7 @@ class StaticPagesControllerTest < ActionController::TestCase
     assert_select "body" do
       assert_select "header" do
         assert_select "nav" do
-          assert_select "nav.navbar.navbar-default.navbar-fixed-top"
+          assert_select "nav.navbar.navbar-fixed-top.navbar-inverse"
           assert_select "div", {count: 3} do
             assert_select "div.container-fluid"
 
@@ -63,7 +63,7 @@ class StaticPagesControllerTest < ActionController::TestCase
               assert_select "ul" do
                 assert_select "ul.nav.navbar-nav.navbar-right"
 
-                assert_select "li", {count: 2} do
+                assert_select "li", {count: 3} do
 
                   assert_select "li" do
                     assert_select "a" do
@@ -76,6 +76,13 @@ class StaticPagesControllerTest < ActionController::TestCase
                     assert_select "a" do
                       assert_select "a", {text: "Sign In"}
                       assert_select ":match('href', ?)", /^\/signin$/, nil, "-E-FATAL, Sign in path not specified"
+                    end
+                  end
+
+                  assert_select "li" do
+                    assert_select "a" do
+                      assert_select "a", {text: "Sign Up"}
+                      assert_select ":match('href', ?)", /^\/signup$/, nil, "-E-FATAL, Sign up path not specified"
                     end
                   end
 
@@ -93,6 +100,16 @@ class StaticPagesControllerTest < ActionController::TestCase
   test "expects page to render correct bootstrap body styling" do
     assert_select "body" do
       assert_select "div.container" do
+        assert_select "div.center.jumbotron" do
+          assert_select "h1", {text: "Park 55 Medical Associates"}
+          assert_select "h2", {text: "Premier Internal Medicine"}
+          assert_select "a.btn.btn-lg.btn-success", {text: "Sign In"} do
+            assert_select ":match('href', ?)", /^\/signin$/, nil, "-E-FATAL, Sign in path not specified"
+          end
+          assert_select "a.btn.btn-lg.btn-primary", {text: "Register"} do
+            assert_select ":match('href', ?)", /^\/signup$/, nil, "-E-FATAL, Sign up path not specified"
+          end
+        end
       end
     end
   end
@@ -101,7 +118,7 @@ class StaticPagesControllerTest < ActionController::TestCase
     assert_select "body" do
       assert_select "footer" do
         assert_select "footer.footer" do
-          assert_select "p>a" do
+          assert_select "p>small>a" do
             assert_select "a", {text: "Framework Solutions, LLC"}
             assert_select ":match('href', ?)", /^https:\/\/www.framework-solutions.com$/
           end
